@@ -15,12 +15,18 @@ import org.jboss.aop.joinpoint.Invocation;
 @Aspect(scope=Scope.PER_VM)
 public class FileAspect {
 
-	@Bind(pointcut = "execution(* java.io.File->createNewFile(..))")
+	@Bind(pointcut = "execution(java.lang.Boolean java.io.File->createNewFile(..))")
 	public Object createNewFile(Invocation invocation) throws Throwable {
 		Object ret = invocation.invokeNext();
 		File target = (File) invocation.getTargetObject();
 		target.delete();
 		return ret;
+	}
+	
+	@Bind(pointcut= "execution(public nada.nada.*->new())")
+	public Object nada(Invocation invocation) throws Throwable{
+		System.out.println("Nada");
+		return invocation.invokeNext();
 	}
 
 	/**
@@ -32,12 +38,13 @@ public class FileAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Bind(pointcut = "execution(* java.io.File->createTempFile(..))")
+	@Bind(pointcut = "execution(java.io.File java.io.File->createTempFile(..))")
 	public Object createTempFileOnlyRead(Invocation invocation)
 			throws Throwable {
 		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
+		File target = (File) ret;
 		target.setReadOnly();
+		System.out.println("superTeste");
 		return ret;
 	}
 
@@ -49,12 +56,13 @@ public class FileAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Bind(pointcut = "execution(* java.io.File->createTempFile(..))")
+	@Bind(pointcut = "execution(public * java.io.File->createTempFile(..))")
 	public Object createAndDeleteTempFile(Invocation invocation)
 			throws Throwable {
 		Object ret = invocation.invokeNext();
 		File target = (File) invocation.getTargetObject();
 		target.delete();
+		System.out.println("superTeste2");
 		return ret;
 	}
 }
