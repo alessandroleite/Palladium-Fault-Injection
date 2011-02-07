@@ -11,8 +11,7 @@ import org.jboss.aop.pointcut.ast.ParseException;
 
 public class Binding {
 
-	public void bindingAdvice(Class<?>[] classes,
-			Class<? super Interceptor>[] interceptors,
+	public void bindingAdvice(Class<?>[] classes, Class<? super Interceptor>[] interceptors,
 			String[] pointCutExpressions) throws ParseException {
 		assert !(classes.length == interceptors.length && interceptors.length == pointCutExpressions.length);
 
