@@ -14,6 +14,22 @@ import org.jboss.aop.joinpoint.Invocation;
  */
 @Aspect(scope = Scope.PER_VM)
 public class FileAspect {
+	
+	/**
+	 * Advice method to intercept execution of
+	 * {@link File#createTempFile(String, String)} to set the created file to be
+	 * only read.
+	 * 
+	 * @param invocation
+	 * @return
+	 * @throws Throwable
+	 */
+	@Bind(pointcut = "call(* java.io.File->createTempFile(..))")
+	public Object createTempFileOnlyRead(Invocation invocation) throws Throwable {
+		Object ret = invocation.invokeNext();
+		((File) ret).setReadOnly();
+		return ret;
+	}
 
 	/**
 	 * Advice method to intercept execution of
@@ -28,5 +44,5 @@ public class FileAspect {
 		Object ret = invocation.invokeNext();
 		((File) ret).delete();
 		return ret;
-	}
+	}	
 }

@@ -1,1 +1,7 @@
 Palladium Fault Injection
+
+1) How run the tests 
+ a) Setting the -javaAgent <jboss-aop-jar-file.jar>
+ b) Seeting the jboss.aop.class.path=<path to Aspect class or Jar>
+more info in http://community.jboss.org/wiki/DebuggingJBossAOPInEclipse
+
