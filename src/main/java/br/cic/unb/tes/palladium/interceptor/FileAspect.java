@@ -12,34 +12,8 @@ import org.jboss.aop.joinpoint.Invocation;
  * {@link File} simulating a fault where the result of invocation is
  * <code>true</code>, but the file is erase of disk.
  */
-@Aspect(scope=Scope.PER_VM)
+@Aspect(scope = Scope.PER_VM)
 public class FileAspect {
-
-	@Bind(pointcut = "execution(* java.io.File->createNewFile(..))")
-	public Object createNewFile(Invocation invocation) throws Throwable {
-		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
-		target.delete();
-		return ret;
-	}
-
-	/**
-	 * Advice method to intercept execution of
-	 * {@link File#createTempFile(String, String)} to set the created file to be
-	 * only read.
-	 * 
-	 * @param invocation
-	 * @return
-	 * @throws Throwable
-	 */
-	@Bind(pointcut = "execution(* java.io.File->createTempFile(..))")
-	public Object createTempFileOnlyRead(Invocation invocation)
-			throws Throwable {
-		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
-		target.setReadOnly();
-		return ret;
-	}
 
 	/**
 	 * Advice method to intercept execution of
@@ -49,12 +23,10 @@ public class FileAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Bind(pointcut = "execution(* java.io.File->createTempFile(..))")
-	public Object createAndDeleteTempFile(Invocation invocation)
-			throws Throwable {
+	@Bind(pointcut = "call(* java.io.File->createTempFile(..))")
+	public Object createAndDeleteTempFile(Invocation invocation) throws Throwable {
 		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
-		target.delete();
+		((File) ret).delete();
 		return ret;
 	}
 }

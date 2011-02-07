@@ -6,14 +6,14 @@
 	<artifactId>palladium</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1</version>
-	<name>Palladium Fault Injection</name>	
+	<name>Palladium Fault Injection</name>
 	<description>An Dynamic Fault Injection Tool</description>
 	<licenses>
-   		<license>
-     		<name>lgpl</name>
-     		<url>http://repository.jboss.com/licenses/lgpl.txt</url>
-   		</license>
-    </licenses> 
+		<license>
+			<name>lgpl</name>
+			<url>http://repository.jboss.com/licenses/lgpl.txt</url>
+		</license>
+	</licenses>
 	<repositories>
 		<repository>
 			<id>jboss</id>
@@ -22,7 +22,7 @@
 		<repository>
 			<id>maven-repository.dev.java.net</id>
 			<url>http://download.java.net/maven/1</url>
-		</repository>		
+		</repository>
 		<repository>
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
@@ -44,9 +44,9 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
-		</repository>	
+		</repository>
 	</repositories>
-	<pluginRepositories>	
+	<pluginRepositories>
 		<pluginRepository>
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
@@ -80,6 +80,10 @@
 				<enabled>true</enabled>
 			</releases>
 		</pluginRepository>
+		<pluginRepository>
+		   <id>jboss-plugin-repository</id>
+			<url>http://repository.jboss.com/maven2/</url>
+		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
 		<dependency>
@@ -89,9 +93,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss.jboss-aop</groupId>
+			<groupId>org.jboss.aop</groupId>
 			<artifactId>jboss-aop</artifactId>
-			<version>1.5.0.GA</version>
+			<version>2.2.0.Final</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -138,14 +142,14 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>	
-					<additionalProjectnatures>						
+				<configuration>
+					<additionalProjectnatures>
 						<projectnature>
 							org.maven.ide.eclipse.maven2Nature
 						</projectnature>
 						<projectnature>
 							org.eclipse.jem.workbench.JavaEMFNature
-						</projectnature>	
+						</projectnature>
 					</additionalProjectnatures>
 					<additionalBuildcommands>
 						<buildcommand>
@@ -170,6 +174,24 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- <plugin>
+				<groupId>org.jboss.maven.plugins</groupId>
+				<artifactId>maven-jbossaop-plugin</artifactId>
+				<version>2.1.3.GA</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<configuration>
+							<aoppaths>
+								<aoppath>META-INF/jboss-aop.xml</aoppath>
+							</aoppaths>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -181,12 +203,13 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-	</build>	
+	</build>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.build.timestamp.format>yyyyMMdd_HHmm</maven.build.timestamp.format>
 		<build.number>${maven.build.timestamp}</build.number>
 		<compile.source>1.6</compile.source>
+		<jboss.aop.plugin.version>2.1.3.GA</jboss.aop.plugin.version>
 	</properties>
 </project>
