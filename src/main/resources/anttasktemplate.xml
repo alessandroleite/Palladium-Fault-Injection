@@ -1,0 +1,23 @@
+<project default="aopc" name="Palladium Fault Injection Tool">
+	<taskdef name="aopc"
+		     classname="org.jboss.aop.ant.AopC"
+		     classpathref="jboss.aop.classpath"
+	/>
+	<target name="aopc">
+		 <path id="tool">
+		 	<pathelement path="${tool.classpath}"/>
+		 </path>
+  		<path id="jboss.aop.classpath">
+			<pathelement path="${aop.classpath}"/>
+		</path>
+		<path id="classpath">
+			<path refid="tool"/>
+			<path refid="jboss.aop.classpath"/>			
+		</path>
+		<aopc compilerclasspathref="classpath" verbose="true">
+			<classpath path="${classes.dir.lib}"/>
+			<src path="${classes.dir}"/>
+			<aopclasspath refid="jboss.aop.classpath"/>
+		</aopc>
+	</target>
+</project>
