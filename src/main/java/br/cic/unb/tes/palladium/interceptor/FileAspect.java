@@ -12,23 +12,9 @@ import org.jboss.aop.joinpoint.Invocation;
  * {@link File} simulating a fault where the result of invocation is
  * <code>true</code>, but the file is erase of disk.
  */
-@Aspect(scope=Scope.PER_VM)
+@Aspect(scope = Scope.PER_VM)
 public class FileAspect {
-
-	@Bind(pointcut = "execution(java.lang.Boolean java.io.File->createNewFile(..))")
-	public Object createNewFile(Invocation invocation) throws Throwable {
-		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
-		target.delete();
-		return ret;
-	}
 	
-	@Bind(pointcut= "execution(public nada.nada.*->new())")
-	public Object nada(Invocation invocation) throws Throwable{
-		System.out.println("Nada");
-		return invocation.invokeNext();
-	}
-
 	/**
 	 * Advice method to intercept execution of
 	 * {@link File#createTempFile(String, String)} to set the created file to be
@@ -38,13 +24,10 @@ public class FileAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Bind(pointcut = "execution(java.io.File java.io.File->createTempFile(..))")
-	public Object createTempFileOnlyRead(Invocation invocation)
-			throws Throwable {
+	@Bind(pointcut = "call(* java.io.File->createTempFile(..))")
+	public Object createTempFileOnlyRead(Invocation invocation) throws Throwable {
 		Object ret = invocation.invokeNext();
-		File target = (File) ret;
-		target.setReadOnly();
-		System.out.println("superTeste");
+		((File) ret).setReadOnly();
 		return ret;
 	}
 
@@ -56,13 +39,10 @@ public class FileAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Bind(pointcut = "execution(public * java.io.File->createTempFile(..))")
-	public Object createAndDeleteTempFile(Invocation invocation)
-			throws Throwable {
+	@Bind(pointcut = "call(* java.io.File->createTempFile(..))")
+	public Object createAndDeleteTempFile(Invocation invocation) throws Throwable {
 		Object ret = invocation.invokeNext();
-		File target = (File) invocation.getTargetObject();
-		target.delete();
-		System.out.println("superTeste2");
+		((File) ret).delete();
 		return ret;
-	}
+	}	
 }
