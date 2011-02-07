@@ -17,7 +17,7 @@ public class Binding {
 		assert !(classes.length == interceptors.length && interceptors.length == pointCutExpressions.length);
 
 		for (int i = 0; i < classes.length; i++) {
-			AdviceBinding binding = new AdviceBinding(pointCutExpressions[i], null);
+			AdviceBinding binding = new AdviceBinding(classes[i].getSimpleName(), pointCutExpressions[i], null);
 			binding.addInterceptor(interceptors[i]);
 			AspectManager.instance().addBinding(binding);
 		}
