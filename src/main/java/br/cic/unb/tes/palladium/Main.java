@@ -10,17 +10,15 @@ import org.jboss.aop.pointcut.ast.ParseException;
 
 import br.cic.unb.tes.palladium.interceptor.FileInputStreamInterceptor;
 
-
-@SuppressWarnings("rawtypes")
 public class Main {
-	
-	
+
+
 	public static void main(String[] args) throws URISyntaxException, ZipException, IOException, ClassNotFoundException, ParseException {
 		AdviceBinding binding = new AdviceBinding("superpc","call(java.io.FileInputStream->new(..))", null);
 		binding.addInterceptor(FileInputStreamInterceptor.class);
 		AspectManager.instance().addBinding(binding);
-		new Teste();
-		
+		//new Teste();
+
 //		PalladiumOptions options = new PalladiumOptions();		
 //		CmdLineParser parser = new CmdLineParser(options);		
 //		try {

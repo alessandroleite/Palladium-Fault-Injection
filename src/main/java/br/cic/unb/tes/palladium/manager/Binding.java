@@ -39,6 +39,7 @@ public class Binding {
 			AspectManager.instance().removeBinding(name);
 		}
 	}
+	
 
 	public void addAspect(String[] aspectClasses) {
 		if (aspectClasses == null) return;		
