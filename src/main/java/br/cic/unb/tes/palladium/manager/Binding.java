@@ -1,5 +1,9 @@
 package br.cic.unb.tes.palladium.manager;
 
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jboss.aop.AspectManager;
 import org.jboss.aop.advice.AdviceBinding;
 import org.jboss.aop.advice.AspectDefinition;
@@ -11,21 +15,33 @@ import org.jboss.aop.pointcut.ast.ParseException;
 
 public class Binding {
 
-	public void bindingAdvice(Class<?>[] classes,
-			Class<? super Interceptor>[] interceptors,
-			String[] pointCutExpressions) throws ParseException {
-		assert !(classes.length == interceptors.length && interceptors.length == pointCutExpressions.length);
+	private final static Logger LOGGER = Logger.getLogger(Binding.class .getName());
+	
+	public void bindInterceptors(Class<? super Interceptor>[] interceptors, String[] pointCutExpressions) {
+		assert !(interceptors.length == pointCutExpressions.length);
 
-		for (int i = 0; i < classes.length; i++) {
-			AdviceBinding binding = new AdviceBinding(pointCutExpressions[i], null);
-			binding.addInterceptor(interceptors[i]);
-			AspectManager.instance().addBinding(binding);
+		for (int i = 0; i < interceptors.length; i++) {
+			
+			AdviceBinding binding;
+			try {
+				binding = new AdviceBinding(interceptors[i].getName(),pointCutExpressions[i], null);
+				binding.addInterceptor(interceptors[i]);
+				AspectManager.instance().addBinding(binding);
+			} catch (ParseException e) {
+				LOGGER.log(Level.WARNING,"Error parsing ointcut ["+pointCutExpressions[i]+"], pointcut ignored");
+			}
+		}
+	}
+	
+	public void clearInterceptorsBindings(){		
+		Map<String,AdviceBinding> bindinds = AspectManager.instance().getBindings();
+		for (String name :  bindinds.keySet()) {
+			AspectManager.instance().removeBinding(name);
 		}
 	}
 
 	public void addAspect(String[] aspectClasses) {
-		if (aspectClasses == null) return;
-		
+		if (aspectClasses == null) return;		
 		for (int i = 0; i < aspectClasses.length; i++) {
 			AspectFactory factory = new GenericAspectFactory(aspectClasses[i], null);
 			AspectDefinition def = new AspectDefinition(aspectClasses[i], Scope.PER_VM, factory);
