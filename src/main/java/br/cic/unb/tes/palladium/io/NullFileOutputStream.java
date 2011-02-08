@@ -11,19 +11,29 @@ import java.io.InputStream;
  * result of {@link InputStream#available()} is always gather than zero, but,
  * the result of {@link InputStream#read()} is always -1.
  */
-public class NullFileInputStream extends java.io.FileInputStream {
+public class NullFileOutputStream extends java.io.FileOutputStream {
 
 	private static final int DEFAULT_BYTE_AVALIABLE = 100;
+	
+	
 
-	public NullFileInputStream(String s) throws FileNotFoundException{
+	public NullFileOutputStream(String s) throws FileNotFoundException{		
 		super(s);
 	}
 	
-	public NullFileInputStream(File f) throws FileNotFoundException {
+	public NullFileOutputStream(String s, Boolean b) throws FileNotFoundException{		
+		super(s,b);
+	}
+	
+	public NullFileOutputStream(File f) throws FileNotFoundException {
 		super(f);
 	}
 	
-	public NullFileInputStream(FileDescriptor fd) {
+	public NullFileOutputStream(File f, Boolean b) throws FileNotFoundException {
+		super(f,b);
+	}
+	
+	public NullFileOutputStream(FileDescriptor fd) {
 		super(fd);
 	}
 
