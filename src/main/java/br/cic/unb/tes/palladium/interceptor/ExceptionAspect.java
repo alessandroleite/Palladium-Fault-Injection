@@ -11,7 +11,7 @@ import org.jboss.aop.pointcut.Pointcut;
 @Aspect
 public class ExceptionAspect {
 	
-	@PointcutDef("")
+	//@PointcutDef("")
 	public static Pointcut throwsSQLExceptionMethods;
 	
 

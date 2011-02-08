@@ -12,7 +12,7 @@ import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
-import br.cic.unb.tes.palladium.introspector.ClassUtils;
+import br.cic.unb.tes.palladium.util.ClassUtils;
 
 public class ExecuteTask {
 	

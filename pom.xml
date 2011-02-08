@@ -157,7 +157,8 @@
 							<mainClass>br.cic.unb.tes.palladium.Main</mainClass>
 						</manifest>
 						<manifestEntries>
-							<Premain-Class>org.jboss.aop.standalone.Agent</Premain-Class>
+							<!-- <Premain-Class>org.jboss.aop.standalone.Agent</Premain-Class> -->
+							<Premain-Class>br.cic.unb.tes.palladium.standalone.Agent</Premain-Class>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 						</manifestEntries>
 					</archive>

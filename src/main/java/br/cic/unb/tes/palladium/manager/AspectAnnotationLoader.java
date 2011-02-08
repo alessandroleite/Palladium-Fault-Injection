@@ -4,7 +4,7 @@ import org.jboss.aop.Aspect;
 import org.jboss.aop.AspectManager;
 import org.jboss.aop.Deployment;
 
-import br.cic.unb.tes.palladium.util.ClassUtil;
+import br.cic.unb.tes.palladium.util.ClassUtils;
 
 public class AspectAnnotationLoader {
 
@@ -19,14 +19,14 @@ public class AspectAnnotationLoader {
 	public void deployClassFile(Class<?>... classes) throws Exception {
 		if (classes != null) {
 			for (Class<?> clazz : classes) {
-				this.loader.deployClassFile(ClassUtil.getClassFile(clazz));
+				this.loader.deployClassFile(ClassUtils.getClassFile(clazz));
 			}
 		}
 	}
 
 	public void deployAllClassesFromPackage(String packageName)
 			throws Exception {
-		this.deployClassFile(ClassUtil.getClassesWith(packageName, Aspect.class));
+		this.deployClassFile(ClassUtils.getClassesWith(packageName, Aspect.class));
 	}
 
 	/**
