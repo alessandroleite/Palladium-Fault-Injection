@@ -15,13 +15,13 @@ import br.cic.unb.tes.palladium.io.NullFileInputStream;
 
 
 
-@InterceptorDef(scope=Scope.PER_VM)
+@InterceptorDef(scope=Scope.PER_INSTANCE)
 @Bind(pointcut="call(java.io.FileInputStream->new(..))")
 public class FileInputStreamInterceptor implements Interceptor {
 	
 	@Override
 	public String getName() {			
-			return FileInputStreamInterceptor.class.getCanonicalName();
+			return FileInputStreamInterceptor.class.getName();
 	}
 	
 	@Override
