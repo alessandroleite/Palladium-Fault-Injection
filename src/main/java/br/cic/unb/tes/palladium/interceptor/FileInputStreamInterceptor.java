@@ -16,7 +16,7 @@ import br.cic.unb.tes.palladium.manager.AspectManager;
 
 
 
-@InterceptorDef(scope=Scope.PER_INSTANCE)
+@InterceptorDef(scope=Scope.PER_VM)
 @Bind(pointcut="call(java.io.FileInputStream->new(..))")
 public class FileInputStreamInterceptor implements Interceptor {
 	

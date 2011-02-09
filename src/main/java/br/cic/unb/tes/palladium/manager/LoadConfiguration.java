@@ -19,9 +19,9 @@ public class LoadConfiguration {
 			
 	public void applyConfiguration(Properties properties){				
 		configuration = parseConfiguration(properties);
-		Binding bindings = new Binding();		
-		bindings.clearInterceptorsBindings();
-		bindings.bindInterceptors(configuration.getInterceptorsArray(), configuration.getPointcutsArray());	
+//		Binding bindings = new Binding();		
+//		bindings.clearInterceptorsBindings();
+//		bindings.bindInterceptors(configuration.getInterceptorsArray(), configuration.getPointcutsArray());	
 	}
 	
 	public boolean isInterceptorEnable(Class<?> interceptorClazz){
@@ -69,12 +69,12 @@ public class LoadConfiguration {
 			}
 		}
 			
-		public Class[] getInterceptorsArray(){
-			return classes.toArray(new Class[classes.size()]);
-		}
-		
-		public String[] getPointcutsArray(){
-			return pointcuts.toArray(new String[pointcuts.size()]);
-		}
+//		public Class[] getInterceptorsArray(){
+//			return classes.toArray(new Class[classes.size()]);
+//		}
+//		
+//		public String[] getPointcutsArray(){
+//			return pointcuts.toArray(new String[pointcuts.size()]);
+//		}
 	}
 }

@@ -6,9 +6,16 @@ public class AspectManager {
 	
 	private LoadConfiguration configuration;
 	
-	private synchronized static AspectManager initManager(){
+	private AspectManager() {
+		configuration = new LoadConfiguration();
+	}
+	
+	private synchronized static AspectManager initManager(){		
 		if (manager == null){
-			new Thread(new FileMonitor()).start();
+			manager = new AspectManager();
+			Thread t = new Thread(new FileMonitor());
+			t.setDaemon(true);
+			t.start();			
 		}
 		return manager;
 	}
@@ -19,7 +26,7 @@ public class AspectManager {
 		return manager;
 	}
 	
-	public LoadConfiguration getConfiguration() {
+	public synchronized LoadConfiguration getConfiguration() {
 		return configuration;
 	}
 }

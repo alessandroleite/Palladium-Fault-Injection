@@ -1,5 +1,6 @@
 package br.cic.unb.tes.palladium.io;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -29,6 +30,16 @@ public class NullFileInputStream extends java.io.FileInputStream {
 
 	public int read() throws IOException {
 		return -1;
+	}
+	
+	@Override
+	public int read(byte[] b) throws IOException {
+		throw new EOFException();
+	}
+	
+	@Override
+	public int read(byte[] b, int off, int len) throws IOException {	
+		throw new EOFException();
 	}
 
 	public int available() throws IOException {
