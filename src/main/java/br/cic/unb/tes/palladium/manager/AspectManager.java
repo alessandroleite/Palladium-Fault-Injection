@@ -21,7 +21,7 @@ public class AspectManager {
 	}
 	
 	
-	public static AspectManager instance(){
+	public synchronized static AspectManager instance(){
 		AspectManager manager = initManager();
 		return manager;
 	}

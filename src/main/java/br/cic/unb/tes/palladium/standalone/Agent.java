@@ -17,14 +17,14 @@ public class Agent {
 	}
 
 	public static void premain(String agentArgs, Instrumentation inst) {
-		instrumentation = inst;
-
+		System.setProperty("jboss.aop.class.path", ClassUtils.getClassLocation(Agent.class));
+		
+		instrumentation = inst;		
+		
 		if (agentArgs != null
 				&& (agentArgs.indexOf(".jar") != -1 || (agentArgs.indexOf("/") != -1))) {
 			System.setProperty("app.class.path", agentArgs);
-
-			// to help the launcher;
-			System.setProperty("jboss.aop.class.path", ClassUtils.getAppPath());
+			// to help the launcher;			
 			System.setProperty("jboss.aop.path", agentArgs);
 		}
 		
