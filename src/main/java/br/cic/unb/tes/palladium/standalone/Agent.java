@@ -2,6 +2,7 @@ package br.cic.unb.tes.palladium.standalone;
 
 import java.lang.instrument.Instrumentation;
 
+import br.cic.unb.tes.palladium.manager.AspectManager;
 import br.cic.unb.tes.palladium.util.ClassUtils;
 
 /**
@@ -26,8 +27,8 @@ public class Agent {
 			System.setProperty("jboss.aop.class.path", ClassUtils.getAppPath());
 			System.setProperty("jboss.aop.path", agentArgs);
 		}
-
-		// inst.addTransformer(new PreparerClassFileTransformer());
+		
+		AspectManager.instance();
 		org.jboss.aop.standalone.Agent.premain("-hotSwap", inst);
 	}
 }

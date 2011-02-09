@@ -14,12 +14,18 @@ import org.jboss.aop.advice.Interceptor;
 public class LoadConfiguration {
 	
 	private final static Logger LOGGER = Logger.getLogger(LoadConfiguration.class .getName());	
+	
+	private Configuration configuration;
 			
 	public void applyConfiguration(Properties properties){				
-		Configuration config = parseConfiguration(properties);
+		configuration = parseConfiguration(properties);
 		Binding bindings = new Binding();		
 		bindings.clearInterceptorsBindings();
-		bindings.bindInterceptors(config.getInterceptorsArray(), config.getPointcutsArray());	
+		bindings.bindInterceptors(configuration.getInterceptorsArray(), configuration.getPointcutsArray());	
+	}
+	
+	public boolean isInterceptorEnable(Class<?> interceptorClazz){
+		return this.configuration.classes.indexOf(interceptorClazz) != -1;
 	}
 	
 	private Configuration parseConfiguration(Properties properties){
@@ -64,13 +70,11 @@ public class LoadConfiguration {
 		}
 			
 		public Class[] getInterceptorsArray(){
-			return classes.toArray(new Class[0]);
+			return classes.toArray(new Class[classes.size()]);
 		}
 		
 		public String[] getPointcutsArray(){
-			return pointcuts.toArray(new String[0]);
+			return pointcuts.toArray(new String[pointcuts.size()]);
 		}
-		
 	}
-
 }

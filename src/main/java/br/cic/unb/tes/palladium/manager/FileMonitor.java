@@ -13,8 +13,7 @@ public class FileMonitor implements Runnable {
 	private static final String DEFAULT_FILE_NAME = "palladium-runtime.config";
 	
 	public void run() {
-		final String fileName = System.getProperty(FILE_NAME_KEY) == null ? DEFAULT_FILE_NAME
-				: System.getProperty(FILE_NAME_KEY);		
+		final String fileName = System.getProperty(FILE_NAME_KEY, DEFAULT_FILE_NAME);		
 		long lastModifiedTime = 0l;
 		while(true){			
 			try {
@@ -24,12 +23,12 @@ public class FileMonitor implements Runnable {
 					FileInputStream fin =  new FileInputStream(new File(fileName));
 					properties.load(fin);					
 					fin.close();
-					new LoadConfiguration().applyConfiguration(properties);
+					AspectManager.instance().getConfiguration().applyConfiguration(properties);
 				}
 				lastModifiedTime = currentModifiedTime;
 				Thread.sleep(SLEEP_TIME);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} catch (InterruptedException ignore) {
+				
 			} catch (IOException e) {
 				throw new FileMonitorException("Scanfile Error", e);				
 			}

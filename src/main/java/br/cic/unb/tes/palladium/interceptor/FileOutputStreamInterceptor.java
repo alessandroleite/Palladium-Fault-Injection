@@ -12,6 +12,7 @@ import org.jboss.aop.joinpoint.CallerInvocation;
 import org.jboss.aop.joinpoint.Invocation;
 
 import br.cic.unb.tes.palladium.io.NullFileOutputStream;
+import br.cic.unb.tes.palladium.manager.AspectManager;
 
 
 
@@ -27,14 +28,15 @@ public class FileOutputStreamInterceptor implements Interceptor {
 	@Override
 	public Object invoke(Invocation invocation) throws Throwable {
 		Object result = invocation.invokeNext();
-		if (result != null && FileOutputStream.class.isAssignableFrom(result.getClass())){
-			if (invocation != null && CallerInvocation.class.isAssignableFrom(invocation.getClass())){
-				Object[] args = ((CallerInvocation)invocation).getArguments();
-				if (args != null && args.length > 0){
-					return  new Mirror().on(NullFileOutputStream.class).invoke().constructor().withArgs(args);
-				}				
+		if (AspectManager.instance().getConfiguration().isInterceptorEnable(this.getClass()))
+			if (result != null && FileOutputStream.class.isAssignableFrom(result.getClass())){
+				if (invocation != null && CallerInvocation.class.isAssignableFrom(invocation.getClass())){
+					Object[] args = ((CallerInvocation)invocation).getArguments();
+					if (args != null && args.length > 0){
+						return  new Mirror().on(NullFileOutputStream.class).invoke().constructor().withArgs(args);
+					}				
+				}
 			}
-		}
 		return result;
 	}
 }

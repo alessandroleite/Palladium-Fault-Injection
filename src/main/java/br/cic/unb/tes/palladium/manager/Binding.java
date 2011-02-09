@@ -28,7 +28,7 @@ public class Binding {
 				binding.addInterceptor(interceptors[i]);
 				AspectManager.instance().addBinding(binding);
 			} catch (ParseException e) {
-				LOGGER.log(Level.WARNING,"Error parsing ointcut ["+pointCutExpressions[i]+"], pointcut ignored");
+				LOGGER.log(Level.WARNING,"Error parsing pointcut ["+pointCutExpressions[i]+"], pointcut ignored");
 			}
 		}
 	}
